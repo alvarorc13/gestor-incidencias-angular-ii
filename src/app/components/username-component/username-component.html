@@ -1,0 +1,7 @@
+<form [formGroup]="myForm">
+    <label for="">Username</label>
+    <input type="text" formControlName="username">
+    @if (isValidField('username')) {
+        <span>{{getFieldError('username')}}</span>
+    }
+</form>

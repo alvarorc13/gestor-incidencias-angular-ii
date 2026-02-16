@@ -1,0 +1,43 @@
+<h2>Template: Básicos</h2>
+<hr />
+
+<div class="row">
+  <div class="col">
+    <form (ngSubmit)="save(myForm)" #myForm="ngForm" autocomplete="off">
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Email</label>
+
+        <div class="col-sm-9">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Introduce tu email"
+            name="email"
+            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+            required
+            ngModel
+          />
+          @if (notValidField('email')) {
+            <span class="form-text text-danger"> El email debe ser valido </span>
+          }
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <input type="checkbox" name="terminos" required ngModel />
+        <label class="col-sm-3 col-form-label">Aceptar terminos</label>
+        @if (notValidField('terminos')) {
+          <span class="form-text text-danger"> Debes aceptar los terminos </span>
+        }
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <button type="submit" [disabled]="!myForm.valid" class="btn btn-primary float-end">
+            Guardar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
