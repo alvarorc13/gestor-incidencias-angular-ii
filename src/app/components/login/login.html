@@ -1,0 +1,66 @@
+<form
+  [formGroup]="loginForm"
+  (ngSubmit)="login()"
+  autocomplete="off"
+  class="p-4 border rounded shadow-sm bg-light"
+  style="max-width: 400px"
+>
+  <div class="mb-3">
+    <label class="form-label">Email</label>
+    <input
+      type="email"
+      formControlName="email"
+      class="form-control"
+      placeholder="Introduce tu email"
+    />
+    @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+      <div class="mt-2">
+        @if (loginForm.get('email')?.hasError('required')) {
+          <p class="text-red-400 text-xs">El email es obligatorio</p>
+        }
+        @if (loginForm.get('email')?.hasError('email')) {
+          <p class="text-red-400 text-xs">Email no válido</p>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Contraseña</label>
+    <input
+      type="password"
+      formControlName="password"
+      class="form-control"
+      placeholder="Introduce tu contraseña"
+    />
+    @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+      <div class="mt-2">
+        @if (loginForm.get('password')?.hasError('required')) {
+          <p class="text-red-400 text-xs">La contraseña es obligatoria</p>
+        }
+      </div>
+    }
+  </div>
+
+  <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary w-100">
+    Iniciar sesión
+  </button>
+</form>
+
+<swal
+  #swalSuccess
+  title="¡Bienvenido!"
+  text="Acceso concedido"
+  icon="success"
+  [timer]="1500"
+  [showConfirmButton]="false"
+>
+</swal>
+
+<swal
+  #swalError
+  title="Acceso denegado"
+  text="Credenciales incorrectas o formulario inválido"
+  icon="error"
+>
+</swal>

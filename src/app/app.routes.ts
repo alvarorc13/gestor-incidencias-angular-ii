@@ -1,8 +1,10 @@
 import { Routes } from '@angular/router';
-import { SubscribeComponent } from './components/subscribe-component/subscribe-component';
-import { UsernameComponent } from './components/username-component/username-component';
+import { DashboardComponent } from './components/dashboard-component/dashboard-component';
+import { Login } from './components/login/login';
+import { NewIncidenceComponent } from './components/new-incidence-component/new-incidence-component';
 
 export const routes: Routes = [
-  { path: 'ejer1', component: SubscribeComponent },
-  { path: 'ejer2', component: UsernameComponent }
+    {path: 'auth/login', component: Login},
+    {path: 'dashboard', component: DashboardComponent},
+    {path: 'dashboard/nueva', component: NewIncidenceComponent},
 ];
