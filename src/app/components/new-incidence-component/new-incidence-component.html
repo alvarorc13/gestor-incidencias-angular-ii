@@ -1,1 +1,29 @@
-<p>new-incidence-component works!</p>
+<form [formGroup]="newIncidenceForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Título</label>
+    <input formControlName="title" type="text" />
+    @if (isNotValidField('title')) {
+      <span>{{ getFieldErrors('title') }}</span>
+    }
+  </div>
+
+  <label>Descripcion</label>
+  <input formControlName="description" type="text" />
+  @if (isNotValidField('description')) {
+    <span>{{ getFieldErrors('description') }}</span>
+  }
+
+  <div>
+    <label>Prioridad</label>
+    <select formControlName="priority">
+      <option value="Baja">Baja</option>
+      <option value="Media">Media</option>
+      <option value="Alta">Alta</option>
+    </select>
+    @if (isNotValidField('priority')) {
+      <span>{{ getFieldErrors('priority') }}</span>
+    }
+  </div>
+
+  <button type="submit" [disabled]="newIncidenceForm.invalid">Guardar</button>
+</form>

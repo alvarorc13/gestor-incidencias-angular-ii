@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { IncidenciaService } from '../../services/incidencias.service';
 
 @Component({
   selector: 'app-dashboard-component',
@@ -7,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './dashboard-component.css',
 })
 export class DashboardComponent {
-
+  private incidenciasService = inject(IncidenciaService);
+  incidences = this.incidenciasService.incidencias();
 }

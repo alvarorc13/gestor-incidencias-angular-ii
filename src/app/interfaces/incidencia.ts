@@ -1,7 +1,15 @@
-export interface Incidencia {
-  id: number;
-  titulo: string; // "Se ha roto la cafetera"
-  descripcion: string;
-  prioridad: 'Baja' | 'Alta';
-  usuarioId: string; // Quién la creó
+export interface NewIncidence {
+  title: string;
+  description: string;
+  priority: 'Baja' | 'Media' | 'Alta';
+}
+
+export interface Incidence {
+  title: string;
+  description: string;
+  priority: 'Baja' | 'Media' | 'Alta';
+  status: 'Pendiente' | 'En Proceso' | 'Resuelta';
+  userId: string | null;
+  userName: string;
+  date: Date;
 }

@@ -3,6 +3,7 @@ import { User } from '../../interfaces/user';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
+import { Router } from '@angular/router';
 
 interface LoginResponse {
   token: string;
@@ -14,9 +15,10 @@ interface LoginResponse {
 })
 export class AuthService {
   private _user = signal<User | null>(null);
-  private user = this._user.asReadonly();
+  user = this._user.asReadonly();
   private http = inject(HttpClient);
   private URLBase: string = 'http://localhost:3001';
+  private router = inject(Router);
 
   constructor() {
     const token = localStorage.getItem('token');
@@ -30,12 +32,13 @@ export class AuthService {
       tap((response) => {
         localStorage.setItem('token', response.token);
         this._user.set(response.user);
-      })
+      }),
     );
   }
 
   logout() {
     localStorage.removeItem('token');
     this._user.set(null);
+    this.router.navigate(['/auth/login']);
   }
 }
