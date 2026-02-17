@@ -1,9 +1,20 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/">Gestor Incidencias</a>
-
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">
+  <div class="container">
+    
+    <!-- Brand -->
+    <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" routerLink="/">
+      <div class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10" 
+           style="width: 36px; height: 36px;">
+        <i class="bi bi-shield-exclamation text-white"></i>
+      </div>
+      <span style="background: linear-gradient(135deg, #667eea, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        Gestor Incidencias
+      </span>
+    </a>
+    
+    <!-- Toggler -->
     <button
-      class="navbar-toggler"
+      class="navbar-toggler border-0"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navbarNav"
@@ -11,28 +22,58 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
+    <!-- Links -->
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
+      <ul class="navbar-nav ms-auto align-items-center gap-1">
+        
         <li class="nav-item">
-          <a class="nav-link" routerLink="/dashboard">Inicio</a>
+          <a class="nav-link px-3 py-2 rounded-pill text-white-50 hover-link" 
+             routerLink="/dashboard"
+             routerLinkActive="active-link">
+            <i class="bi bi-house me-1"></i>Inicio
+          </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" routerLink="/dashboard/nueva">Reportar incidencia</a>
+          <a class="nav-link px-3 py-2 rounded-pill text-white-50 hover-link" 
+             routerLink="/dashboard/nueva"
+             routerLinkActive="active-link">
+            <i class="bi bi-plus-circle me-1"></i>Reportar incidencia
+          </a>
         </li>
 
         @if (!authService.user()) {
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/auth/login">Login</a>
+          <li class="nav-item ms-2">
+            <a class="btn btn-sm text-white fw-semibold px-3"
+               style="background: linear-gradient(135deg, #667eea, #764ba2); border: none;"
+               routerLink="/auth/login">
+              <i class="bi bi-box-arrow-in-right me-1"></i>Login
+            </a>
           </li>
         }
 
         @if (authService.user()) {
-          <li class="nav-item">
-            <a class="nav-link" (click)="logout()">Logout</a>
+          <li class="nav-item ms-2 d-flex align-items-center gap-2">
+            <!-- Avatar con nombre -->
+            <div class="d-flex align-items-center gap-2 text-white-50 small">
+              <div class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10"
+                   style="width: 32px; height: 32px;">
+                <i class="bi bi-person text-white"></i>
+              </div>
+              <span>{{ authService.user()?.name }}</span>
+            </div>
+
+            <!-- Botón logout -->
+            <button 
+              class="btn btn-sm btn-outline-danger px-3"
+              (click)="logout()">
+              <i class="bi bi-box-arrow-right me-1"></i>Logout
+            </button>
           </li>
         }
+
       </ul>
     </div>
+
   </div>
 </nav>

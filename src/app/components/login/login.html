@@ -1,66 +1,164 @@
-<form
-  [formGroup]="loginForm"
-  (ngSubmit)="login()"
-  autocomplete="off"
-  class="p-4 border rounded shadow-sm bg-light"
-  style="max-width: 400px"
->
-  <div class="mb-3">
-    <label class="form-label">Email</label>
-    <input
-      type="email"
-      formControlName="email"
-      class="form-control"
-      placeholder="Introduce tu email"
-    />
-    @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
-      <div class="mt-2">
-        @if (loginForm.get('email')?.hasError('required')) {
-          <p class="text-red-400 text-xs">El email es obligatorio</p>
-        }
-        @if (loginForm.get('email')?.hasError('email')) {
-          <p class="text-red-400 text-xs">Email no válido</p>
-        }
+<div class="min-vh-100 d-flex align-items-center justify-content-center bg-dark">
+  <div class="card border-0 shadow-lg" style="width: 420px; border-radius: 16px; overflow: hidden">
+    <!-- Header -->
+    <div
+      class="card-header text-center py-4 border-0"
+      style="background: linear-gradient(135deg, #667eea, #764ba2)"
+    >
+      <div
+        class="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-25"
+        style="width: 64px; height: 64px"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="white"
+          style="width: 32px; height: 32px"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
+          />
+        </svg>
       </div>
-    }
+      <h4 class="text-white fw-bold mb-1">Bienvenido</h4>
+      <p class="text-white-50 small mb-0">Accede a tu cuenta</p>
+    </div>
+
+    <!-- Body -->
+    <div class="card-body p-4 bg-white">
+      <form [formGroup]="loginForm" (ngSubmit)="login()" autocomplete="off">
+        <!-- Email -->
+        <div class="mb-4">
+          <label class="form-label fw-semibold text-secondary small text-uppercase tracking-wide">
+            Email
+          </label>
+          <div class="input-group">
+            <span class="input-group-text border-end-0 bg-light">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                style="width: 18px; height: 18px; color: #6c757d"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
+                />
+              </svg>
+            </span>
+            <input
+              type="email"
+              formControlName="email"
+              placeholder="usuario@ejemplo.com"
+              class="form-control border-start-0 bg-light ps-0"
+              [class.is-invalid]="
+                loginForm.get('email')?.invalid && loginForm.get('email')?.touched
+              "
+              [class.is-valid]="loginForm.get('email')?.valid && loginForm.get('email')?.touched"
+            />
+          </div>
+
+          @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+            <div class="mt-1">
+              @if (loginForm.get('email')?.hasError('required')) {
+                <small class="text-danger">
+                  <i class="bi bi-exclamation-circle me-1"></i>
+                  El email es obligatorio
+                </small>
+              }
+              @if (loginForm.get('email')?.hasError('email')) {
+                <small class="text-danger">
+                  <i class="bi bi-exclamation-circle me-1"></i>
+                  Email no válido
+                </small>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Password -->
+        <div class="mb-4">
+          <div class="d-flex justify-content-between">
+            <label class="form-label fw-semibold text-secondary small text-uppercase">
+              Contraseña
+            </label>
+            <a href="#" class="small text-primary text-decoration-none"> ¿Olvidaste tu clave? </a>
+          </div>
+          <div class="input-group">
+            <span class="input-group-text border-end-0 bg-light">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                style="width: 18px; height: 18px; color: #6c757d"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
+                />
+              </svg>
+            </span>
+            <input
+              type="password"
+              formControlName="password"
+              placeholder="••••••••"
+              class="form-control border-start-0 bg-light ps-0"
+              [class.is-invalid]="
+                loginForm.get('password')?.invalid && loginForm.get('password')?.touched
+              "
+              [class.is-valid]="
+                loginForm.get('password')?.valid && loginForm.get('password')?.touched
+              "
+              autocomplete="current-password"
+            />
+          </div>
+
+          @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+            <div class="mt-1">
+              @if (loginForm.get('password')?.hasError('required')) {
+                <small class="text-danger">
+                  <i class="bi bi-exclamation-circle me-1"></i>
+                  La contraseña es obligatoria
+                </small>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Botón -->
+        <button
+          type="submit"
+          [disabled]="loginForm.invalid"
+          class="btn w-100 text-white fw-bold py-2"
+          style="
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 8px;
+          "
+        >
+          Iniciar sesión
+        </button>
+      </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="card-footer text-center py-3 bg-light border-0">
+      <small class="text-muted">
+        ¿No tienes cuenta?
+        <a href="#" class="text-primary fw-semibold text-decoration-none ms-1">
+          Regístrate gratis
+        </a>
+      </small>
+    </div>
   </div>
-
-  <div class="mb-3">
-    <label class="form-label">Contraseña</label>
-    <input
-      type="password"
-      formControlName="password"
-      class="form-control"
-      placeholder="Introduce tu contraseña"
-    />
-    @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
-      <div class="mt-2">
-        @if (loginForm.get('password')?.hasError('required')) {
-          <p class="text-red-400 text-xs">La contraseña es obligatoria</p>
-        }
-      </div>
-    }
-  </div>
-
-  <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary w-100">
-    Iniciar sesión
-  </button>
-</form>
-
-<swal
-  #swalSuccess
-  title="¡Bienvenido!"
-  text="Acceso concedido"
-  icon="success"
-  [timer]="1500"
-  [showConfirmButton]="false"
->
-</swal>
-
-<swal
-  #swalError
-  title="Acceso denegado"
-  text="Credenciales incorrectas o formulario inválido"
-  icon="error"
->
-</swal>
+</div>

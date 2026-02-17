@@ -1,29 +1,103 @@
-<form [formGroup]="newIncidenceForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label>Título</label>
-    <input formControlName="title" type="text" />
-    @if (isNotValidField('title')) {
-      <span>{{ getFieldErrors('title') }}</span>
-    }
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="card shadow-sm border-0">
+        <!-- Header -->
+        <div
+          class="card-header border-0 py-3"
+          style="background: linear-gradient(135deg, #667eea, #764ba2)"
+        >
+          <h5 class="text-white fw-bold mb-0 text-center">
+            <i class="bi bi-plus-circle me-2"></i>Nueva Incidencia
+          </h5>
+        </div>
+
+        <!-- Body -->
+        <div class="card-body p-4">
+          <form [formGroup]="newIncidenceForm" (ngSubmit)="onSubmit()">
+            <!-- Título -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold text-secondary small text-uppercase">
+                Título
+              </label>
+              <input
+                formControlName="title"
+                type="text"
+                placeholder="Introduce el título"
+                class="form-control"
+                [class.is-invalid]="isNotValidField('title')"
+                [class.is-valid]="
+                  !isNotValidField('title') && newIncidenceForm.get('title')?.touched
+                "
+              />
+              @if (isNotValidField('title')) {
+                <div class="invalid-feedback">
+                  {{ getFieldErrors('title') }}
+                </div>
+              }
+            </div>
+
+            <!-- Descripción -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold text-secondary small text-uppercase">
+                Descripción
+              </label>
+              <textarea
+                formControlName="description"
+                rows="3"
+                placeholder="Describe la incidencia..."
+                class="form-control"
+                [class.is-invalid]="isNotValidField('description')"
+                [class.is-valid]="
+                  !isNotValidField('description') && newIncidenceForm.get('description')?.touched
+                "
+              ></textarea>
+              @if (isNotValidField('description')) {
+                <div class="invalid-feedback">
+                  {{ getFieldErrors('description') }}
+                </div>
+              }
+            </div>
+
+            <!-- Prioridad -->
+            <div class="mb-4">
+              <label class="form-label fw-semibold text-secondary small text-uppercase">
+                Prioridad
+              </label>
+              <select
+                formControlName="priority"
+                class="form-select"
+                [class.is-invalid]="isNotValidField('priority')"
+                [class.is-valid]="
+                  !isNotValidField('priority') && newIncidenceForm.get('priority')?.touched
+                "
+              >
+                <option value="" disabled selected>Selecciona una prioridad</option>
+                <option value="Baja">🟢 Baja</option>
+                <option value="Media">🟡 Media</option>
+                <option value="Alta">🔴 Alta</option>
+              </select>
+              @if (isNotValidField('priority')) {
+                <div class="invalid-feedback">
+                  {{ getFieldErrors('priority') }}
+                </div>
+              }
+            </div>
+
+            <!-- Botón -->
+            <div class="d-grid">
+              <button
+                type="submit"
+                [disabled]="newIncidenceForm.invalid"
+                class="btn text-white fw-bold py-2"
+                style="background: linear-gradient(135deg, #667eea, #764ba2); border: none"
+              >
+                <i class="bi bi-save me-2"></i>Guardar Incidencia
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <label>Descripcion</label>
-  <input formControlName="description" type="text" />
-  @if (isNotValidField('description')) {
-    <span>{{ getFieldErrors('description') }}</span>
-  }
-
-  <div>
-    <label>Prioridad</label>
-    <select formControlName="priority">
-      <option value="Baja">Baja</option>
-      <option value="Media">Media</option>
-      <option value="Alta">Alta</option>
-    </select>
-    @if (isNotValidField('priority')) {
-      <span>{{ getFieldErrors('priority') }}</span>
-    }
-  </div>
-
-  <button type="submit" [disabled]="newIncidenceForm.invalid">Guardar</button>
-</form>
+</div>

@@ -1,12 +1,12 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/service/auth.service';
-import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, SwalComponent],
+  imports: [ReactiveFormsModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -15,9 +15,6 @@ export class Login {
   private router = inject(Router);
   private authService = inject(AuthService);
 
-  @ViewChild('swalSuccess') swalSuccess!: SwalComponent;
-  @ViewChild('swalError') swalError!: SwalComponent;
-
   loginForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
@@ -25,15 +22,15 @@ export class Login {
 
   login() {
     if (this.loginForm.invalid) {
-      this.swalError.fire();
+      Swal.fire({ title: 'Error', text: 'Acceso denegado' });
     }
 
     this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
-      next: (response) => {
-        this.swalSuccess.fire();
+      next: () => {
         this.router.navigate(['/dashboard']);
+        Swal.fire({ title: 'Bienvenido', text: 'Acceso concedido', timer: 1000 });
       },
-      error: (error) => this.swalError.fire(),
+      error: () => Swal.fire({ title: 'Error', text: 'Error inesperado' }),
     });
   }
 }
